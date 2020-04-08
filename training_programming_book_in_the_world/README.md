@@ -12,5 +12,7 @@
  例<br>
  入力: "Mr John Smith ", 13<br>
  出力: "Mr%20John%20Smith"<br>
+   - 空白部分を3倍の文字数にしていることがコード上でわかりにくいので注意
+   - char[]で文字列の配列を作成している
 ## 参照
 - [CtCI-6th-Edition-cpp](https://github.com/careercup/CtCI-6th-Edition-cpp)
