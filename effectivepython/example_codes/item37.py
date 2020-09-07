@@ -92,3 +92,13 @@ book.report_grade('Albert Einstein', 'Math', 70, 0.80)
 book.report_grade('Albert Einstein', 'Gym', 100, 0.40)
 book.report_grade('Albert Einstein', 'Gym', 85, 0.60)
 print(book.average_grade('Albert Einstein'))
+
+
+# Example 04
+grades = []
+grades.append((95, 0.45))
+grades.append((85, 0.55))
+total = sum(score * weight for score, weight in grades)
+total_weight = sum(weight for _, weight in grades)
+average_grade = total / total_weight
+print(average_grade)
