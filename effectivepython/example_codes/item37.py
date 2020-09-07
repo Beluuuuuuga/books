@@ -112,3 +112,13 @@ total = sum(score * weight for score, weight, _ in grades)
 total_weight = sum(weight for _, weight, _ in grades)
 average_grade = total / total_weight
 print(average_grade)
+
+
+# Example 06
+from collections import namedtuple
+
+Grade = namedtuple('Grade', ('score', 'weight'))
+a = Grade(95, 0.45)
+b = Grade(85, 0.55)
+average_grade = ((a.score * a.weight) + (b.score * b.weight)) / (a.weight + b.weight)
+print(average_grade)
