@@ -36,3 +36,47 @@ class LineCountWorker(Worker):
     
     def reduce(self, other):
         self.result += other.result
+
+# Example 05
+import os
+
+def generate_inputs(data_dir):
+    for name in os.listdir(data_dir): # ディレクトリ直下のファイルを取得
+        yield PathInputData(os.path.join(data_dir, name))
+
+def create_workers(inputs_list):
+    workers = []
+    for input_data in inputs_list:
+        workers.append(LineCountWorker(input_data))
+    return workers
+
+from threading import Thread
+
+def execute(workers):
+    threads = [Thread(target=w.map) for w in workers] # map関数使用
+    for thread in threads: thread.start()
+    for thread in threads: thread.join()
+
+    first, *rest = workers
+    for worker in rest:
+        first.reduce(worker)
+    return first.result
+
+def mapreduce(data_dir):
+    inputs = generate_inputs(data_dir)
+    workers = create_workers(inputs)
+    return execute(workers)
+
+import os
+import random
+
+def write_test_files(tmpdir):
+    os.mkdir(tmpdir)
+    for i in range(100):
+        with open(os.path.join(tmpdir, str(i)), 'w') as f:
+            f.write('¥n' * random.randint(1, 100))
+
+tmpdir = 'test_inputs'
+# write_test_files(tmpdir)
+result = mapreduce(tmpdir)
+print(f'There are {result} lines')
